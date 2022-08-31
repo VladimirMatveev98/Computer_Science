@@ -16,3 +16,6 @@ def fib(n: int) -> int:
 if __name__ == '__main__':
     print ("expectation 144")
     print (fib(13))
+    n_not_change = True
+    print ("expectation 4181")
+    print (fib(20))

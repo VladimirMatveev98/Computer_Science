@@ -1,11 +1,6 @@
-n_not_change = True
 #Итеративное решение:
-def fib3(n: int) -> int:
-    global n_not_change
-    if n_not_change:
-        n = n - 1
-        n_not_change = False
-
+def fib3(n):
+    n = n - 1
     if n == 0:
         return n #специальный случай
     last = int(0)
@@ -18,4 +13,5 @@ def fib3(n: int) -> int:
 if __name__ == '__main__':
     print ("expectation 7778742049")
     print(fib3(50))
-    n_not_change = True
+    print ("expectation 4181")
+    print (fib3(20))

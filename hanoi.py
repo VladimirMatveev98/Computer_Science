@@ -20,14 +20,14 @@ class Stack(Generic[T]):
 
 def hanoi(begin: Stack[int], end: Stack[int], temp: Stack[int], n:int):
     global h
+    h += 1
     if n == 1:
         end.push(begin.pop())
-        h += 1
     else:
         hanoi(begin, temp, end, n - 1)
         hanoi(begin, end, temp, 1)
         hanoi(temp, end, begin, n - 1)
-        h += 3
+        
 
 def print_towers(): #Облегчает наблюдение за работой основной функции
     print (tower_a)

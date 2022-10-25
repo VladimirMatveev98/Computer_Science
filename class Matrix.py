@@ -1,14 +1,16 @@
 import re
 
 class Matrix(object):
-    global mat
-    mat = {}
+
+
+    def __init__(self):
+        self.mat = {}
+
 
     def fill(self):
-        """Принимать строку, разбивать на элементы и записывать как
-        первую строку матрицы. Далее принимать вторую строку, записывать
-        как вторую строку матрицы. В случае несовпадения длинны строк
-        заполнять нулями пустые позиции более коротких строк"""
+        """Построчно записывает матрицу. Сначала на ввод
+        принимается первая строка через пробелы, затем,
+        после нажатия ENTER, следующая, до тех пор, пока не введено qqq"""
 
         x = 1
         y = 1
@@ -27,46 +29,52 @@ class Matrix(object):
 
             i = 0
             while x < x_max:
-                mat [x,y] = list[i]
+                self.mat [x,y] = list[i]
                 x = x + 1
                 i = i + 1
 
             y = y + 1
 
+
     def give(self,x,y):
         """Возвращает значение по адресу в матрице"""
         key = x,y
-        return mat[key]
+        return int(self.mat[key])
 
-    def __last_key__(self):
-        keys = mat.keys()
+
+    def last_key(self):
+        keys = self.mat.keys()
         keys = list(keys)
         return keys[-1]
 
 
     def print(self):
-        """Доработать вывод, выводить матрицу в виде квадрата в консоль
-        в соответствии с координатами элементов"""
-        #print (mat)
-        keys = mat.keys()
+        """Выводит в консоль матрицу в соответствии с
+        координатами её элементов"""
+        keys = self.mat.keys()
         keys = list(keys)
         max_x, max_y = keys[-1]
-        #print(max_x, max_y)
         x = 1
         y = 1
         string = str()
         while y < max_y + 1:
             while x < max_x + 1:
-                string = string + '|' + mat[x,y]
+                string = string + '|' + self.mat[x,y]
                 x = x + 1
             string = string + '|' + '\n'
             x = 1
             y = y + 1
+
         print ('\n')
         print (string)
 
 
+    def calc_single():
+        pass
+
+
 m1 = Matrix()
+m2 = Matrix()
 con = ()
 
 #Заполнение матрицы:
@@ -74,5 +82,14 @@ m1.fill()
 #Вывод на печать:
 m1.print()
 #Возврат перового элемента матрицы:
-print('Первый элемент матрицы: ', m1.give(1,1))
-#m1.last_key()
+print('Первый элемент матрицы m1: ', m1.give(1,1))
+
+
+m2.fill()
+m2.print()
+
+
+m1.print()
+#Реализовать умножение матриц. Пусть матрица имеет метод умножение,
+#Принимающий в качестве аргумента другую матрицу и возвращающий
+#матрицу-результат.

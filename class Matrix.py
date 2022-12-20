@@ -1,3 +1,6 @@
+
+#https://www.sgau.ru/files/pages/23675/14720393195.pdf
+
 import re
 
 class Matrix(object):
@@ -38,7 +41,6 @@ class Matrix(object):
 
 
     def imp(self,mat_imp):
-        #Сокращение от import
         "Принимает словарь вида {a = x,y} и записывает в матрицу"
         self.mat = mat_imp
         print("Импортирование матрицы прошло успешно.")
@@ -116,7 +118,7 @@ class Matrix(object):
     def mult(self,mat_2):
         mat_1 = self.mat
         mat_2 = mat_2
-        res = Matrix()
+        res = {}
         print("Вызван метод умножения")
         #Проводим проерку размерности:
         keys = self.mat.keys()
@@ -135,14 +137,6 @@ class Matrix(object):
 
         if check:
             print("Продолжим....")
-            x_max,y_max = keys_1
-            x = 1
-            y = 1
-            while x <= x_max:
-                a = mat_1.give(x,y)
-                b = mat_2.give(y,x)
-                x += 1
-                y += 1
 
         #Умножает одну матрицу на другую, возвращает третью матрицу
         return res
@@ -169,26 +163,26 @@ if __name__ == '__main__':
 
     m1 = Matrix()
     #m2 = Matrix()
-    m3 = Matrix()
 
     #Заполнение матрицы:
-    #m1.fill()
-    #m3.fill()
+    m1.fill()
     #Вывод на печать:
-    #m1.print()
+    m1.print()
     #Возврат перового элемента матрицы:
     #print('Первый элемент матрицы m1: ', m1.give(1,1))
 
-    test_1 = {(1,1):1,(2,1):1,(3,1):1,(1,2):2,(2,2):2,(3,2):2,
-            (1,3):3,(2,3):3,(3,3):3}
 
-    test_3 = {(1,1):1,(2,1):2,(3,1):1,(1,2):3,(2,2):4,(3,2):6,
+    #m2.fill()
+
+    #m1.print()
+    #m2.print()
+
+
+    test_1 = {(1,1):1,(2,1):2,(3,1):1,(1,2):3,(2,2):4,(3,2):6,
             (1,3):7,(2,3):8,(3,3):9}
-
-    m3.imp(test_3)
-    m1.imp(test_1)
+    m3 = Matrix()
+    m3.imp(test_1)
     #print('Первый элемент матрицы m3: ', m3.give(1,1))
-    m1.print()
     m3.print()
-
-    m4 = m3.mult(m1)
+    #print(m3.check())
+    m3.mult(m1)

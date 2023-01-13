@@ -1,4 +1,6 @@
+#Необходим только для ввода матрицы с клавиатуры
 import re
+
 
 class Matrix(object):
 
@@ -7,6 +9,7 @@ class Matrix(object):
 
 
     def __str__(self):
+        #дополнять пробелами наиболее короткие элементы матрицы?
         keys = self.mat.keys()
         keys = list(keys)
         max_x, max_y = keys[-1]
@@ -25,14 +28,25 @@ class Matrix(object):
         return string
 
 
+    def __reset__(self):
+        #Очищает матрицу.
+        self.mat.clear()
+
+
+    def __check__(self,m1):
+        #Проверяет, возможно ли умножение на другую матрицу.
+        pass
+
+
     def fill(self):
         """Построчно записывает матрицу. Сначала на ввод
         принимается первая строка через пробелы, затем,
         после нажатия ENTER, следующая, до тех пор, пока не введено qqq"""
-        x = 1
         y = 1
-        i = 0
         content = ()
+        print("Начат ввод матрицы с клавиатуры. Вводите значения построчно.")
+        print("Между элементами строки ставьте пробел.",
+            "Для окончания записи введите qqq.")
         while content != "qqq":
             x = 1
             content = input(">> ")
@@ -48,6 +62,7 @@ class Matrix(object):
                 x = x + 1
                 i = i + 1
             y = y + 1
+        print("Матрица записана.")
 
 
     def insert(self,mat_imp):
@@ -74,50 +89,28 @@ class Matrix(object):
         return keys[-1]
 
 
-    def check(self):
-        #Проверяет, есть ли пробелы в матрице
-        keys = self.mat.keys()
-        keys = list(keys)
-        x,y = keys[-1]
-        x_check = 1
-        y_check = 1
-        check_elements = 0
-        try:
-            while x_check <= x:
-                while y_check <= y:
-                    check_elements += 1
-                    y_check = y_check + 1
-                x_check = x_check + 1
-                y_check = 1
-            return True
-        except:
-            return False
-
-
-    def check_integrity(self):
-        #Ищет пробелы в матрице и заполняет их нулями
-        pass
-
-
-    def mult_number(number):
+    def mult_number(self,number):
         #Умножает матрицу на число
-        #Для этого необходимо умножить на число каждый элемент матрицы
-        pass
+        m_res = Matrix()
+        x_res = 1
+        y_res = 1
+        x_max, y_max = self.last_key()
+        while y_res <= y_max:
+            while x_res <= x_max:
+                cont = self.give(x_res,y_res)
+                m_res.write(x_res,y_res,cont * number)
+                x_res += 1
+
+            x_res = 1
+            y_res += 1
+
+        return m_res
 
 #-------------------Окончание клааса 'Матрица'---------------------------------
 #Реализовать умножение матриц ЧЕРЕЗ ОТДЕЛЬНУЮ ФУНКИЮ.
-
-"""Что можно делать с матрицами?
--Сложение матриц;
--Умножение матрицы на число (Метод mult класса Matrix);
--Транспонирование матриц;
--Умножение матриц (def matrix_multip);
--Обратная матрица;
--Вычислить определитель матрицы (def matrix_determinant)"""
-
 def matrix_multip(m1,m2):
     #m1 и m2 должны быть объектами класса Matrix
-    #ПРОВЕРИТЬ С ДРУГИМИ МАТРИЦАМИ! БЕЗ ЕДИНИЦ!
+    #На данный момент работает корректно только с квадратными матрицами.
     m_res = Matrix()
     c = 0
     x_1 = 1
@@ -156,18 +149,24 @@ def matrix_multip(m1,m2):
 
 def matrix_determinant(m1):
     #Вычисляет определитель матрицы
-    pass
+    x_max, y_max = m1.last_key()
+    if x_max == y_max:
+        print("Нахождение определителя возможно")
 
-#Реализовать вычисление единичной матрицы. ЧЕРЕЗ ОТДЕЛЬНУЮ ФУНКИЮ???
+    else:
+        print("Матрица не квадратная, нахождение определителя невозможно")
+        return False
+
+
 """Превратить изначальную задумку в универсальную библиотеку???
 Дополнить функционал?"""
-
 #----------------IN PROGRESS------EXPERIMENTAL---------------------------------
 
 if __name__ == '__main__':
 
     m1 = Matrix()
     m2 = Matrix()
+    m3 = Matrix()
 
     test_1 = {(1,1):1,(2,1):1,(3,1):1,(1,2):2,(2,2):2,(3,2):2,
             (1,3):3,(2,3):3,(3,3):3}
@@ -184,3 +183,16 @@ if __name__ == '__main__':
     print("РЕЗУЛЬТАТ УМНОЖЕНИЯ ДАННЫХ МАТРИЦ:",'\n' * 2)
     print(matrix_multip(m1,m2))
 
+    print("РЕЗУЛЬТАТ УМНОЖЕНИЯ ПЕРВОЙ МАТРИЦЫ НА 2:",'\n' * 2)
+    m3 = m1.mult_number(2)
+    print(m3)
+
+    #print("ВЫЧИСЛЕНИЕ ОПРЕДЕЛИТЕЛЯ ВТОРОЙ МАТРИЦЫ:",'\n' * 2)
+    #print(matrix_determinant(m2))
+
+    print("УМНОЖЕНИЕ МАТРИЦ, ВВОДИМЫХ С КЛАВИАТУРЫ:",'\n' * 2)
+    m4 = Matrix()
+    m5 = Matrix()
+    m4.fill()
+    m5.fill()
+    print(matrix_multip(m4,m5))

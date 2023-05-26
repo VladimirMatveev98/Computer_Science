@@ -29,7 +29,6 @@ class Tree():
             self.data = data
 
 
-
     def how_numbers_in_range(self,tuple,total = 0):
         self.minimum,self.maximum = tuple
         self.res = total

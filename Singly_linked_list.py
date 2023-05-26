@@ -59,7 +59,7 @@ class Singly_linked_list():
 
     def print_by_gpa(self):
         list_2 = list_1.return_all()
-        list_2.sort(key = sort_by_gpa) #Вывод по среднему баллу
+        list_2.sort(key = sort_by_gpa)
         for student in list_2:
             print(student)
 

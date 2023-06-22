@@ -2,9 +2,18 @@ class Matrix:
     def __init__(self):
         self.mat = []
 
+
     def __str__(self):
-        #Реализовать вывод на печать
-        return "in progress"
+        string = ''
+        for i in self.mat:
+            for j in i:
+                string += str(j) + " "
+            string += '\n'
+        return string
+
+
+    def insert(self,list):
+        self.mat = list
 
 
 
@@ -21,3 +30,9 @@ if __name__ == '__main__':
 
     m1 = Matrix()
     m2 = Matrix()
+
+    m1.insert(test_1)
+    m2.insert(test_2)
+
+    print(m1)
+    print(m2)

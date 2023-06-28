@@ -5,7 +5,7 @@
 --Перемножение прямоугольных матриц (например, 2x3 * 3x2);
     -Возведение матрицы в степень???
 --Вычисление определителя;
---Вычисление обратной матрицы???
+--Вычисление обратной матрицы;
 
 --!!Удалять ненужные переменные после вычислений.Реализовать последним.
 --Заменить данный раздел документацией с перечислением и описанием всех методов
@@ -28,7 +28,7 @@ class Matrix:
     def __mul__(self,other):
         if type(other) == type(self):
             #Умножение на другую матрицу
-
+            pass
         elif type(other) == type(1) or type(other) == type(1.1):
             #Умножение на число
             m_res = Matrix()
@@ -42,8 +42,8 @@ class Matrix:
             return m_res
 
         else:
-            print("Не поддерживается умножение на тип ", type(other))
-            return False
+            error = 'Type "Matrix" can be multiplied to only Matrix or number'
+            raise TypeError(error)
 
 
 

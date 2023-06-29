@@ -25,6 +25,18 @@ class Matrix:
         return string
 
 
+    def __add__(self,other):
+        #сложение
+        pass
+
+
+    def __sub__(self, other):
+        #вычитание
+        """Вычитание матриц реализовать через
+        умножение на -1 и дальнейшего сложения"""
+        pass
+
+
     def __mul__(self,other):
         if type(other) == type(self):
             #Умножение на другую матрицу
@@ -77,6 +89,3 @@ if __name__ == '__main__':
 
     m4 = m1 * 5
     print(m4)
-
-    m5 = m2 * "Hello world!"
-    print(m5)

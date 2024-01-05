@@ -1,15 +1,19 @@
 import threading
-
 import time
 
+#=================================
 TEST_CONST = 250000
+LOGS = False
+#=================================
+
 
 def check_time(func):
     def wrapper(*args, **kwargs):
         start = time.time()
-        func(*args, **kwargs)
+        res = func(*args, **kwargs)
         end = time.time()
         print('[*] Время выполнения: {} секунд.'.format(end-start))
+        return res
     return wrapper
 
 
@@ -20,11 +24,11 @@ def factorial(number:int) -> int:
     for i in range(2,number+1):
         res = res * i
 
-        #if i % 500 == 0:
-            #print("Активные потоки: ", threading.active_count())
-            #print("thr-1 is alive: ", thr_1.is_alive())
-            #print("Итерация: ", i)
-            #print("-" * 22)
+        if i % 500 == 0 and LOGS:
+            print("Активные потоки: ", threading.active_count())
+            print("thr-1 is alive: ", thr_1.is_alive())
+            print("Итерация: ", i)
+            print("-" * 22)
 
     print("Обычная функция завершила работу!")
     return res
@@ -32,6 +36,7 @@ def factorial(number:int) -> int:
 
 @check_time
 def mult_factorial(number:int) -> int:
+    #Реализовать через класс, получить результат вычислений
     def part_fact(start, end):
         """Возвращает произведение всех чисел от start
         до end включительно"""
@@ -39,11 +44,11 @@ def mult_factorial(number:int) -> int:
         for i in range(start+1, end+1):
             res = res * i
 
-            #if i % 5000 == 0:
-                #print("Многопоточные вычисления.")
-                #print("Активные потоки: ", threading.active_count())
-                #print("Итерация: ", i)
-                #print("-" * 22)
+            if i % 5000 == 0 and LOGS:
+                print("Многопоточные вычисления.")
+                print("Активные потоки: ", threading.active_count())
+                print("Итерация: ", i)
+                print("-" * 22)
 
         return res
 
@@ -75,17 +80,20 @@ def mult_factorial(number:int) -> int:
             thread.join()
 
 
-        #Вычисление результата, возврат результата
-        #?????
+    #Вычисление результата, возврат результата(?)
     main(number)
     print("Многопоточная функция завршила работу!")
 
 
 
 if __name__ == '__main__':
-    thr_1 = threading.Thread(target=factorial,args=(str(TEST_CONST),),name='thr-1')
+    thr_1 = threading.Thread(target=factorial,args=(str(TEST_CONST),)
+                            ,name='thr-1')
     thr_1.start()
-    #thr_1.join()
+    print("Обычная функция начала работу!")
 
-    thr = threading.Thread(target=mult_factorial,args=(str(TEST_CONST),),name='thr-10')
+
+    thr = threading.Thread(target=mult_factorial,args=(str(TEST_CONST),)
+                          ,name='thr-mult')
     thr.start()
+    print("Многопоточная функция начала работу!\n")
